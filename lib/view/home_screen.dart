@@ -21,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _moviesFuture = ServiceImp().getMoviesList(searchText); // Fetch movies once
   }
 
-@override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -50,20 +50,56 @@ class _HomeScreenState extends State<HomeScreen> {
                   final moviesList = snapshot.data!;
                   return GridView.builder(
                     physics: NeverScrollableScrollPhysics(),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 8.0,
-                      mainAxisSpacing: 8.0,
-                    ),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 8.0,
+                            mainAxisSpacing: 8.0),
                     itemCount: moviesList.results?.length ?? 0,
                     itemBuilder: (context, index) {
-                      return LayoutBuilder(builder: (context, constraints) => ConstrainedBox(constraints: constraints,
-                      child: Card(
-                        // Her cihazda aynı deneyimi sunmak için bir image generator servisi kullanabiliriz.
-                        // Bu sayede widgetın width ve height bilgisi ile image'ın width ve height bilgisini hesaplayabiliriz.
-                        child: Image.network(Constans.IMAGE_URL(constraints.minWidth, constraints.minHeight, moviesList.results?[index].posterPath), fit: BoxFit.cover,errorBuilder: (context, error, stackTrace) => const Center(child: Text('Error: Image not found')),),
-                      )
-                      ));
+                      return Card(
+                        child: Column(
+                          children: [
+                            Text(
+                                moviesList.results?[index].originalTitle ?? ""),
+                            LayoutBuilder(
+                                builder: (context, constraints) =>
+                                    ConstrainedBox(
+                                        constraints: constraints,
+                                        child: Image.network(
+                                          Constans.IMAGE_URL(
+                                              constraints.minWidth,
+                                              constraints.minHeight,
+                                              moviesList
+                                                  .results?[index].posterPath),
+                                          fit: BoxFit.fill,
+                                          errorBuilder: (context, error,
+                                                  stackTrace) =>
+                                              Center(child: Icon(Icons.error)),
+                                          loadingBuilder: (BuildContext context,
+                                              Widget child,
+                                              ImageChunkEvent?
+                                                  loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            }
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                value: loadingProgress
+                                                            .expectedTotalBytes !=
+                                                        null
+                                                    ? loadingProgress
+                                                            .cumulativeBytesLoaded /
+                                                        loadingProgress
+                                                            .expectedTotalBytes!
+                                                    : null,
+                                              ),
+                                            );
+                                          },
+                                        ))),
+                          ],
+                        ),
+                      );
                     },
                     shrinkWrap: true,
                   );
@@ -76,5 +112,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
 }
