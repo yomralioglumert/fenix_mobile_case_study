@@ -5,8 +5,8 @@ import 'package:fenix_mobile_case_study/model/movies_list_model.dart';
 
 class ServiceImp extends BaseRemoteSource  {
 
-  Future<MoviesListModel> getMoviesList() {
-    var dioCall = dioClient.get(Constans.SEARCH_MOVIE_URL,queryParameters: {"api_key": Constans.API_KEY,  "query": "watchmen"});
+  Future<MoviesListModel> getMoviesList(String query) {
+    var dioCall = dioClient.get(Constans.SEARCH_MOVIE_URL,queryParameters: {"api_key": Constans.API_KEY,  "query": query});
      try {
       return callApiWithErrorParser(dioCall)
           .then((response) => _parseMovieListResponse(response));
