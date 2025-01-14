@@ -1,2 +1,3 @@
 # fenix_mobile_case_study
-Fenix Mobile Case Study
+This repository contains the code for the Fenix Mobile case study.
+
