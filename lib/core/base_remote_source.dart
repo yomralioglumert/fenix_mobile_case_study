@@ -6,7 +6,7 @@ import 'package:fenix_mobile_case_study/network/error_handlers.dart';
 import 'package:fenix_mobile_case_study/network/exceptions/base_exception.dart';
 
 abstract class BaseRemoteSource {
-  Dio get dioClient => DioProvider.dioWithHeaderToken;
+  Dio get dioClient => DioProvider.httpDio;
 
   Future<Response<T>> callApiWithErrorParser<T>(Future<Response<T>> api) async {
     try {
@@ -15,7 +15,6 @@ abstract class BaseRemoteSource {
       if (response.statusCode != HttpStatus.ok ||
           (response.data as Map<String, dynamic>)['statusCode'] !=
               HttpStatus.ok) {
-        // TODO
       }
 
       return response;

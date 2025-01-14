@@ -39,20 +39,6 @@ class DioProvider {
     }
   }
 
-  ///returns a Dio client with Access token in header
-  static Dio get tokenClient {
-    _addInterceptors();
-
-    return _instance!;
-  }
-
-  ///returns a Dio client with Access token in header
-  ///Also adds a token refresh interceptor which retry the request when it's unauthorized
-  static Dio get dioWithHeaderToken {
-    _addInterceptors();
-
-    return _instance!;
-  }
 
   static _addInterceptors() {
     _instance ??= httpDio;

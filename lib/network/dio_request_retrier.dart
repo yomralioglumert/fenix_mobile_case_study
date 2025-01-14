@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:fenix_mobile_case_study/network/dio_provider.dart';
 
 class DioRequestRetrier {
-  final dioClient = DioProvider.tokenClient;
+  final dioClient = DioProvider.httpDio;
   final RequestOptions requestOptions;
 
 

@@ -2,41 +2,27 @@ import 'dart:math' as math;
 
 import 'package:dio/dio.dart';
 
-/// code copied from https://pub.dev/packages/pretty_dio_logger
 class PrettyDioLogger extends Interceptor {
-  /// Print request [Options]
   final bool request;
 
-  /// Print request header [Options.headers]
   final bool requestHeader;
 
-  /// Print request data [Options.tribeCollectionData]
   final bool requestBody;
 
-  /// Print [Response.data]
   final bool responseBody;
 
-  /// Print [Response.headers]
   final bool responseHeader;
 
-  /// Print error message
   final bool error;
 
-  /// InitialTab count to logPrint json response
   static const int initialTab = 1;
 
-  /// 1 tab length
   static const String tabStep = '    ';
 
-  /// Print compact json response
   final bool compact;
 
-  /// Width size per logPrint
   final int maxWidth;
 
-  /// Log printer; defaults logPrint log to console.
-  /// In flutter, you'd better use debugPrint.
-  /// you can also write log in a file.
   void Function(Object object) logPrint;
 
   static const int defaultMaxWidth = 90;
