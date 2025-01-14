@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 FutureBuilder<MoviesListModel>(
                   future:
-                      _moviesFuture, // This future is only initialized in `initState`, so it shouldn't cause repeated builds.
+                      _moviesFuture,
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
                       return Center(child: Text('Error: ${snapshot.error}'));
